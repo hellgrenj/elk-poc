@@ -1,0 +1,40 @@
+version: '3'
+services:
+  dnc-app:
+    build: ./dnc-app
+    ports:
+      - "5002:5002"
+    depends_on:
+      - elk
+    entrypoint: "./wait-for-it.sh elk:9999 -s -t 120 -- dotnet run"
+  go-app:
+    build: ./go-app
+    ports:
+      - "1337:1337"
+    depends_on:
+      - elk
+    entrypoint: "./wait-for-it.sh elk:9999 -s -t 120 -- go-wrapper run"
+  node-app:
+    build: ./node-app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - elk
+    entrypoint: "./wait-for-it.sh elk:9999 -s -t 120 -- node server.js"
+  elk:
+    build: ./elk
+    ports:
+      - "5601:5601"
+      - "9200:9200"
+      - "5045:5045"
+      - "8383:8383"
+    volumes:
+    - elkvol:/var/lib/elasticsearch
+  filebeat:
+    build:  ./filebeat
+    volumes:
+    - ./filebeat/logs:/var/demo/log
+    depends_on:
+      - elk
+volumes:
+  elkvol:

@@ -1,0 +1,8 @@
+filebeat.prospectors:
+- input_type: log
+  encoding: "utf-8"
+  paths:
+    - /var/demo/log/*.log
+  scan_frequency: 5s
+output.logstash:
+  hosts: ["elk:5045"] 
