@@ -10,7 +10,7 @@ An environment for getting to know [the elastic stack (aka ELK and friends)](htt
 
 This environment consists of 5 containers.  
  * elk (elasticsearch, logstash and kibana)    
- * filebeat (with an example log waiting to be shipped)  
+ * [filebeat](https://www.elastic.co/products/beats/filebeat) (with an example log waiting to be shipped)  
  * dnc-app (a dotnet core web application logging to logstash over tcp)   
  * node-app (a node.js web application logging to logstash over tcp)    
  * go-app (a go web application logging to logstash over tcp)    
